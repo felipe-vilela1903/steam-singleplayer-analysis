@@ -49,3 +49,9 @@
 - Decisão: converter a data por um `CASE` com dois formatos (`DD Mon, YYYY` e `Mon DD, YYYY`) e filtrar `type = 'game'`.
 - Por quê: a loja devolveu os dois formatos (986 e 5 jogos), mais 3 datas vazias. Na amostra de 994 itens, 1 era `demo`.
 - Limitação: não sei por que o formato varia, e 2 jogos da análise ficam sem data.
+
+## 11. Modelo para comparar só single player e single + multi
+- Decisão: estimar a diferença de nota entre os jogos só single player e os que também têm multijogador com uma regressão linear (OLS), com a nota em pontos (0 a 100) como resposta. Comparo um modelo sem controles com outro que mantém fixas a popularidade, o preço e a época de lançamento, e uso erro padrão robusto (HC3).
+- Por quê: as tabelas olham uma variável de cada vez, e popularidade, preço e época se relacionam com a nota. Elas entram como categorias, e não como números, porque a nota não sobe nem desce em linha reta com nenhuma delas. Agrupei as categorias pequenas: popularidade 7 ou mais (53 jogos), preço de US$ 20 em diante (99 jogos) e a época em três grupos (até 2014, 2015 a 2019, 2020 em diante). O erro padrão robusto não supõe que as notas se espalham igual em todos os grupos.
+- Os 2 jogos sem data de lançamento ficaram fora do modelo (925 jogos).
+- Limitações: a comparação é observacional e não mostra que o multijogador causa a diferença. O modelo supõe que a diferença é a mesma em todas as categorias, e eu não testei isso. Os agrupamentos foram escolhas minhas, arbitrárias. A nota fica entre 0 e 100, e um modelo linear não respeita esse limite. "Só single player" quer dizer sem a categoria `Multi-player`, então jogos só com `Co-op` entram nesse grupo. O intervalo supõe jogos independentes, e jogos da mesma desenvolvedora podem não ser.
