@@ -22,3 +22,8 @@
 - `average_forever` veio 0 no CS:GO, mesmo com milhões de donos, então vou checar quantos jogos têm esse campo zerado antes de usá-lo.
 - O `all` vem ordenado por número de donos, e as primeiras posições são jogos gigantes e multiplayer. Por isso preciso de todas as páginas, e não só das primeiras.
 - `tags`, `genre`, `languages`, data de lançamento e a informação de single player não vêm no `all`. Vou precisar de uma segunda fase de coleta, com os detalhes de cada jogo que passar no filtro.
+
+## 6. Jogos repetidos entre páginas
+- Observação: 4.042 appids aparecem em mais de uma página do `all` (cerca de 8% das entradas na checagem). As cópias são todas idênticas, e quase todas (3.827) estão em páginas vizinhas.
+- Decisão: a chave `(appid, collected_date)` mantém uma linha por jogo, e a carga ignora as repetições com `ON CONFLICT DO NOTHING`.
+- Limitação: a hipótese é que a ordenação do `all` mude entre um pedido e outro, o que também pode ter deixado alguns jogos fora de todas as páginas. Não consigo medir os que nunca apareceram.
