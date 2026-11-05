@@ -12,9 +12,10 @@
 - Decisão: o script grava primeiro num arquivo temporário (`.tmp`) e só renomeia para `.json` quando a gravação termina.
 - Por quê: se o programa for interrompido no meio da gravação, o arquivo ficaria incompleto e a próxima execução o pularia, achando que estava pronto. Com o `.tmp`, o arquivo final nunca fica pela metade.
 
-## 4. Filtro mínimo de avaliações (a confirmar na limpeza)
-- Decisão provisória: só analisar jogos com pelo menos 50 avaliações.
-- Por quê: um jogo com 3 avaliações, todas positivas, teria 100% de aprovação, mas isso é ruído e não sinal. O valor de 50 é um ponto de partida e vou testar a sensibilidade da análise a ele.
+## 4. Filtro mínimo de avaliações
+- Decisão: só analisar jogos com pelo menos 100 avaliações (positivas mais negativas).
+- Por quê: com poucas avaliações, o % positivo oscila muito. Com 10, cada voto move a nota em 10 pontos, e com 100 o erro típico fica na casa de 4 pontos. Dos 44.958 jogos carregados até a página 48, 21.131 passam desse corte.
+- Limitação: o filtro deixa de fora jogos pouco conhecidos, então as conclusões valem para jogos com uma base mínima de jogadores. Os números serão atualizados quando a coleta terminar.
 
 ## 5. Pontos de atenção nos dados
 - `owners` vem como texto com faixa (por exemplo, `100,000,000 .. 200,000,000`), não como número.
