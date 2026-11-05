@@ -21,8 +21,10 @@ def baixar_pagina(pagina):
     if not data:
         return 0
 
-    with open(caminho, "w", encoding="utf-8") as f:
+    temporario = caminho.with_suffix(".tmp")
+    with open(temporario, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False)
+    temporario.replace(caminho)
 
     print(f"{len(data)} jogos salvos em {caminho}")
     return len(data)
