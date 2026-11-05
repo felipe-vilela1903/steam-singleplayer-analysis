@@ -3,6 +3,7 @@ import time
 from pathlib import Path
 
 import requests
+import sys
 
 URL = "https://store.steampowered.com/api/appdetails"
 PASTA = Path("data/raw/appdetails")
@@ -26,6 +27,22 @@ def baixar_detalhes(appid):
     return dados[str(appid)]["success"]
 
 
-for appid in [730, 413150, 999999999]:
-    print(appid, baixar_detalhes(appid))
-    time.sleep(2)
+def ler_amostra():
+    caminho = Path("data/processed/amostra_appids.txt")
+    return [int(linha) for linha in caminho.read_text(encoding="utf-8").split()]
+
+
+if __name__ == "__main__":
+    baixados = 0
+    for appid in ler_amostra():
+        try:
+            resultado = baixar_detalhes(appid)
+        except requests.RequestException as erro:
+            print(f"erro no appid {appid}: {erro}")
+            sys.exit(1)
+        if resultado is not None:
+            baixados += 1
+            if baixados % 50 == 0:
+                print(f"{baixados} baixados...")
+            time.sleep(2)
+    print(f"baixados nesta execução: {baixados}")

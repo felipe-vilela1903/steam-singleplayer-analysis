@@ -22,7 +22,7 @@ def listar_appids(engine, limite):
 
 
 if __name__ == "__main__":
-    appids = listar_appids(criar_engine(), 20)
+    appids = listar_appids(criar_engine(), 300)
     SAIDA.parent.mkdir(parents=True, exist_ok=True)
     SAIDA.write_text("\n".join(str(a) for a in appids), encoding="utf-8")
     print(len(appids), appids[:3])

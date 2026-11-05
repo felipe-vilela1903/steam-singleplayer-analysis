@@ -28,3 +28,8 @@
 - Observação: na checagem das páginas 0 a 49, 4.042 appids apareciam em mais de uma página do `all` (cerca de 8% das 50.000 entradas). Todas as cópias eram idênticas, e quase todas (3.827) estavam em páginas vizinhas.
 - Decisão: a chave `(appid, collected_date)` mantém uma linha por jogo, e a carga ignora as repetições com `ON CONFLICT DO NOTHING`.
 - Limitação: a hipótese é que a ordenação do `all` mude entre um pedido e outro, o que também pode ter deixado alguns jogos fora de todas as páginas. Não consigo medir os que nunca apareceram. Os números serão atualizados quando a coleta terminar.
+
+## 7. Definição de single player
+- Decisão: considerar single player o jogo com a categoria `Single-player` na API da loja. Guardo à parte uma marca "só single player" (com `Single-player` e sem `Multi-player`), para comparar os dois grupos.
+- Por quê: muitos jogos têm as duas categorias. Em 300 jogos sorteados, 281 têm `Single-player` e 77 deles também têm `Multi-player`. Excluí-los mudaria a pergunta do projeto, e tratá-los todos iguais esconderia a diferença.
+- Limitação: as categorias vêm do cadastro do jogo na loja e não foram verificadas uma a uma. As frações serão recalculadas com a amostra final.
