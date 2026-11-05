@@ -1,4 +1,4 @@
-CREATE VIEW analysis_games AS
+CREATE OR REPLACE VIEW analysis_games AS
 SELECT
     s.appid,
     s.name,
@@ -14,4 +14,5 @@ SELECT
 FROM clean_steamspy s
 JOIN clean_appdetails a ON a.appid = s.appid
 WHERE a.tipo = 'game'
-  AND a.single_player;
+  AND a.single_player
+  AND s.appid IN (SELECT appid FROM amostra_appids);
