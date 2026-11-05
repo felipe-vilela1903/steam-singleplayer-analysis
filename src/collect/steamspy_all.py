@@ -39,4 +39,4 @@ def baixar_tudo(max_paginas):
             time.sleep(61)
 
 
-baixar_tudo(3)
+baixar_tudo(300)
