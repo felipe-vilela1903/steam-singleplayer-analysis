@@ -57,3 +57,9 @@
 - Por quê: as tabelas olham uma variável de cada vez, e popularidade, preço e época se relacionam com a nota. Elas entram como categorias, e não como números, porque a nota não sobe nem desce em linha reta com nenhuma delas. Agrupei as categorias pequenas: popularidade 7 ou mais (53 jogos), preço de US$ 20 em diante (99 jogos) e a época em três grupos (até 2014, 2015 a 2019, 2020 em diante). O erro padrão robusto não supõe que as notas se espalham igual em todos os grupos.
 - Os 2 jogos sem data de lançamento ficaram fora do modelo (925 jogos).
 - Limitações: a comparação é observacional e não mostra que o multijogador causa a diferença. O modelo supõe que a diferença é a mesma em todas as categorias, e eu não testei isso. Os agrupamentos foram escolhas minhas, arbitrárias. A nota fica entre 0 e 100, e um modelo linear não respeita esse limite. "Só single player" quer dizer sem a categoria `Multi-player`, então jogos só com `Co-op` entram nesse grupo. O intervalo supõe jogos independentes, e jogos da mesma desenvolvedora podem não ser.
+
+## 12. Fim da coleta do SteamSpy
+- Observação: a coleta baixou as páginas 0 a 86 do endpoint `all` (86.544 entradas, 82.502 jogos distintos). A página 86 veio com 544 jogos, e não 1.000. As páginas 87 e 88 devolveram, com status 200, o texto `Connection failed: Too many connections`, e as páginas 100 e 500 devolveram erro 500 com corpo vazio.
+- Interpretação: uma página incompleta sugere que a lista acabou ali, mas não confirmei isso. Não sei explicar por que as páginas 87 e 88 respondem diferente das 100 e 500, nem se o erro delas é temporário.
+- Decisão: seguir a análise com as páginas 0 a 86 e tratar o fim da lista como não confirmado.
+- Limitação: se existirem páginas além da 86, os jogos delas não estão na análise. Como o `all` vem ordenado por número de donos, eles seriam os de menos donos.
