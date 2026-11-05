@@ -36,3 +36,12 @@ for rotulo, m in [("sem controles", simples), ("com controles", ajustado)]:
         f"{rotulo}: {m.params['so_single_num']:.1f} pontos "
         f"(IC 95%: {ic[0]:.1f} a {ic[1]:.1f})"
     )
+
+tabela = pd.DataFrame(
+    {
+        "coef": ajustado.params.round(2),
+        "ic_baixo": ajustado.conf_int()[0].round(2),
+        "ic_alto": ajustado.conf_int()[1].round(2),
+    }
+)
+print(tabela.to_string())
