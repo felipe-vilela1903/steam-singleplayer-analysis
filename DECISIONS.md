@@ -14,8 +14,8 @@
 
 ## 4. Filtro mínimo de avaliações
 - Decisão: só analisar jogos com pelo menos 100 avaliações (positivas mais negativas).
-- Por quê: com poucas avaliações, o % positivo oscila muito. Com 10, cada voto move a nota em 10 pontos, e com 100 o erro típico fica na casa de 4 pontos. Dos 44.958 jogos carregados até a página 48, 21.131 passam desse corte.
-- Limitação: o filtro deixa de fora jogos pouco conhecidos, então as conclusões valem para jogos com uma base mínima de jogadores. Os números serão atualizados quando a coleta terminar.
+- Por quê: com poucas avaliações, o % positivo oscila muito. Com 10, cada voto move a nota em 10 pontos, e com 100 o erro típico fica na casa de 4 pontos (conta aproximada, para um jogo com cerca de 80% de aprovação). Dos 82.502 jogos da coleta completa, 23.049 passam desse corte (28%).
+- Limitação: o filtro deixa de fora jogos pouco conhecidos, então as conclusões valem para jogos com uma base mínima de jogadores. Depois da análise principal, vou repetir os resultados com cortes de 50 e de 200 para ver se as conclusões dependem desse número.
 
 ## 5. Pontos de atenção nos dados
 - `owners` vem como texto com faixa (por exemplo, `100,000,000 .. 200,000,000`), não como número.
