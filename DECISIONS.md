@@ -24,6 +24,6 @@
 - `tags`, `genre`, `languages`, data de lançamento e a informação de single player não vêm no `all`. Vou precisar de uma segunda fase de coleta, com os detalhes de cada jogo que passar no filtro.
 
 ## 6. Jogos repetidos entre páginas
-- Observação: 4.042 appids aparecem em mais de uma página do `all` (cerca de 8% das entradas na checagem). As cópias são todas idênticas, e quase todas (3.827) estão em páginas vizinhas.
+- Observação: na checagem das páginas 0 a 49, 4.042 appids apareciam em mais de uma página do `all` (cerca de 8% das 50.000 entradas). Todas as cópias eram idênticas, e quase todas (3.827) estavam em páginas vizinhas.
 - Decisão: a chave `(appid, collected_date)` mantém uma linha por jogo, e a carga ignora as repetições com `ON CONFLICT DO NOTHING`.
-- Limitação: a hipótese é que a ordenação do `all` mude entre um pedido e outro, o que também pode ter deixado alguns jogos fora de todas as páginas. Não consigo medir os que nunca apareceram.
+- Limitação: a hipótese é que a ordenação do `all` mude entre um pedido e outro, o que também pode ter deixado alguns jogos fora de todas as páginas. Não consigo medir os que nunca apareceram. Os números serão atualizados quando a coleta terminar.
