@@ -1,4 +1,5 @@
 import json
+import sys
 from datetime import date
 from pathlib import Path
 
@@ -52,5 +53,15 @@ def carregar_pasta(engine, pasta):
     print(f"total enviado: {total}")
 
 
+def pasta_mais_recente():
+    base = Path("data/raw/steamspy")
+    return max((p for p in base.iterdir() if p.is_dir()), key=lambda p: p.name)
+
+
 if __name__ == "__main__":
-    carregar_pasta(criar_engine(), Path("data/raw/steamspy/2026-11-05"))
+    if len(sys.argv) > 1:
+        pasta = Path(sys.argv[1])
+    else:
+        pasta = pasta_mais_recente()
+    print(f"carregando {pasta}")
+    carregar_pasta(criar_engine(), pasta)
