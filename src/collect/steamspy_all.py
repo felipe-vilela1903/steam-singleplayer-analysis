@@ -5,6 +5,7 @@ import requests
 import time
 
 URL = "https://steamspy.com/api.php"
+JOGOS_POR_PAGINA = 1000
 
 pasta = Path("data/raw/steamspy") / date.today().isoformat()
 pasta.mkdir(parents=True, exist_ok=True)
@@ -17,7 +18,12 @@ def baixar_pagina(pagina):
 
     resp = requests.get(URL, params={"request": "all", "page": pagina}, timeout=30)
     resp.raise_for_status()
-    data = resp.json()
+    try:
+        data = resp.json()
+    except ValueError:
+        raise RuntimeError(
+            f"a página {pagina} não veio em JSON: {resp.text[:80]!r}"
+        )
     if not data:
         return 0
 
@@ -29,11 +35,12 @@ def baixar_pagina(pagina):
     print(f"{len(data)} jogos salvos em {caminho}")
     return len(data)
 
+
 def baixar_tudo(max_paginas):
     for pagina in range(max_paginas):
         n = baixar_pagina(pagina)
-        if n == 0:
-            print("acabaram as páginas")
+        if n is not None and n < JOGOS_POR_PAGINA:
+            print(f"página {pagina} veio com {n} jogos: provável fim da lista")
             break
         if n is not None:
             time.sleep(61)
