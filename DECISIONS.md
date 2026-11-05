@@ -33,3 +33,18 @@
 - Decisão: considerar single player o jogo com a categoria `Single-player` na API da loja. Guardo à parte uma marca "só single player" (com `Single-player` e sem `Multi-player`), para comparar os dois grupos.
 - Por quê: muitos jogos têm as duas categorias. Em 300 jogos sorteados, 281 têm `Single-player` e 77 deles também têm `Multi-player`. Excluí-los mudaria a pergunta do projeto, e tratá-los todos iguais esconderia a diferença.
 - Limitação: as categorias vêm do cadastro do jogo na loja e não foram verificadas uma a uma. As frações serão recalculadas com a amostra final.
+
+## 8. Popularidade como posição de 1 a 13
+- Decisão: converter `owners` na posição da faixa (1 = `0 .. 20,000`, 13 = `100,000,000 .. 200,000,000`), usando uma tabela de consulta (`owners_faixas`).
+- Por quê: o campo é uma faixa de texto, e 56.472 dos 82.502 jogos (68%) estão na menor faixa. Usar o limite inferior colocaria quase 7 em cada 10 jogos em "0 donos". Cada faixa tem aproximadamente o dobro de donos da anterior, então a posição é uma medida natural de popularidade.
+- Limitação: `owners` é uma estimativa do SteamSpy com faixas largas. Na análise, a nota não cresce nem cai de forma contínua com a faixa, então ela entra no modelo como categoria, e não como um número crescente.
+
+## 9. Amostra para buscar os detalhes da loja
+- Decisão: pedir os detalhes à API da loja só para uma amostra de 1.000 jogos com 100 ou mais avaliações, ordenados por `md5(appid || semente)` com a semente fixa `steam-singleplayer-v1`.
+- Por quê: buscar os 23.049 jogos levaria mais de 10 horas, e ordenar por um hash dá uma amostra pseudoaleatória que qualquer pessoa reproduz. Na amostra, 994 jogos vieram com dados e 928 entraram na análise (single player e do tipo `game`), cerca de 4% dos 23.049.
+- Limitação: o resultado descreve esses 928 jogos. Intervalos e diferenças são aproximados, e eu não fiz testes formais.
+
+## 10. Data de lançamento e tipo do item
+- Decisão: converter a data por um `CASE` com dois formatos (`DD Mon, YYYY` e `Mon DD, YYYY`) e filtrar `type = 'game'`.
+- Por quê: a loja devolveu os dois formatos (986 e 5 jogos), mais 3 datas vazias. Na amostra de 994 itens, 1 era `demo`.
+- Limitação: não sei por que o formato varia, e 2 jogos da análise ficam sem data.
