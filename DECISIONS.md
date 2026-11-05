@@ -15,7 +15,9 @@
 ## 4. Filtro mínimo de avaliações
 - Decisão: só analisar jogos com pelo menos 100 avaliações (positivas mais negativas).
 - Por quê: com poucas avaliações, o % positivo oscila muito. Com 10, cada voto move a nota em 10 pontos, e com 100 o erro típico fica na casa de 4 pontos (conta aproximada, para um jogo com cerca de 80% de aprovação). Dos 82.502 jogos da coleta completa, 23.049 passam desse corte (28%).
-- Limitação: o filtro deixa de fora jogos pouco conhecidos, então as conclusões valem para jogos com uma base mínima de jogadores. Depois da análise principal, vou repetir os resultados com cortes de 50 e de 200 para ver se as conclusões dependem desse número.
+- Limitação: o filtro deixa de fora jogos pouco conhecidos, então as conclusões valem para jogos com uma base mínima de jogadores.
+- Teste de sensibilidade: repeti a regressão com corte de 200 avaliações (675 jogos). A diferença entre só single player e single + multi ficou em 4,7 pontos com controles (IC 95%: 2,1 a 7,3), contra 4,6 (2,3 a 7,0) com o corte de 100. Sem controles, 3,3 contra 3,5. Os dois cortes não são independentes, porque a amostra de 200 está dentro da de 100.
+- Não testado: o corte de 50 exigiria uma amostra nova, com jogos de 50 a 99 avaliações e mais downloads na loja. Fica como limitação.
 
 ## 5. Pontos de atenção nos dados
 - `owners` vem como texto com faixa (por exemplo, `100,000,000 .. 200,000,000`), não como número.
