@@ -2,6 +2,7 @@ from datetime import date
 from pathlib import Path
 import json
 import requests
+import time
 
 URL = "https://steamspy.com/api.php"
 
@@ -17,6 +18,8 @@ def baixar_pagina(pagina):
     resp = requests.get(URL, params={"request": "all", "page": pagina}, timeout=30)
     resp.raise_for_status()
     data = resp.json()
+    if not data:
+        return 0
 
     with open(caminho, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False)
@@ -24,5 +27,14 @@ def baixar_pagina(pagina):
     print(f"{len(data)} jogos salvos em {caminho}")
     return len(data)
 
-print(baixar_pagina(0))
-print(baixar_pagina(1))
+def baixar_tudo(max_paginas):
+    for pagina in range(max_paginas):
+        n = baixar_pagina(pagina)
+        if n == 0:
+            print("acabaram as páginas")
+            break
+        if n is not None:
+            time.sleep(61)
+
+
+baixar_tudo(3)
