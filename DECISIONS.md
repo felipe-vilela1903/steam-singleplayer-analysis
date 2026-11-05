@@ -40,9 +40,10 @@
 - Limitação: `owners` é uma estimativa do SteamSpy com faixas largas. Na análise, a nota não cresce nem cai de forma contínua com a faixa, então ela entra no modelo como categoria, e não como um número crescente.
 
 ## 9. Amostra para buscar os detalhes da loja
-- Decisão: pedir os detalhes à API da loja só para uma amostra de 1.000 jogos com 100 ou mais avaliações, ordenados por `md5(appid || semente)` com a semente fixa `steam-singleplayer-v1`.
-- Por quê: buscar os 23.049 jogos levaria mais de 10 horas, e ordenar por um hash dá uma amostra pseudoaleatória que qualquer pessoa reproduz. Na amostra, 994 jogos vieram com dados e 928 entraram na análise (single player e do tipo `game`), cerca de 4% dos 23.049.
-- Limitação: o resultado descreve esses 928 jogos. Intervalos e diferenças são aproximados, e eu não fiz testes formais.
+- Decisão: pedir os detalhes à API da loja só para uma amostra de 1.000 jogos com 100 ou mais avaliações, ordenados por `md5(appid || semente)` com a semente fixa `steam-singleplayer-v1`. A lista fica na tabela `amostra_appids`, e a visão de análise só usa jogos dela.
+- Por quê: buscar os 23.049 jogos levaria mais de 10 horas, e ordenar por um hash dá uma amostra pseudoaleatória que qualquer pessoa reproduz. Na amostra, 927 jogos entram na análise (single player e do tipo `game`), cerca de 4% dos 23.049.
+- Correção: nos testes eu baixei alguns jogos à mão, e um deles (Stardew Valley) entrou na primeira versão da análise sem ter vindo do sorteio. Percebi ao comparar a visão com a lista sorteada, e o removi usando a tabela da amostra como filtro.
+- Limitação: o resultado descreve esses 927 jogos. Intervalos e diferenças são aproximados, e eu não fiz testes formais.
 
 ## 10. Data de lançamento e tipo do item
 - Decisão: converter a data por um `CASE` com dois formatos (`DD Mon, YYYY` e `Mon DD, YYYY`) e filtrar `type = 'game'`.
