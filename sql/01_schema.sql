@@ -1,0 +1,21 @@
+CREATE TABLE raw_steamspy (
+    appid           INTEGER NOT NULL,
+    collected_date  DATE    NOT NULL,
+    name            TEXT,
+    developer       TEXT,
+    publisher       TEXT,
+    score_rank      TEXT,
+    positive        INTEGER,
+    negative        INTEGER,
+    userscore       INTEGER,
+    owners          TEXT,
+    average_forever INTEGER,
+    average_2weeks  INTEGER,
+    median_forever  INTEGER,
+    median_2weeks   INTEGER,
+    ccu             INTEGER,
+    price           TEXT,
+    initialprice    TEXT,
+    discount        TEXT,
+    PRIMARY KEY (appid, collected_date)
+);
